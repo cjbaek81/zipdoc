@@ -1,0 +1,45 @@
+spring:
+  profiles: loc
+  datasource:
+    driverClassName: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3307/dev?autoReconnect=true&useSSL=false&useUnicode=yes&characterEncoding=utf-8&serverTimezone=UTC
+    username: root
+    password: 1qaz2wsx
+    hikari:        
+      pool-name: hikari-cp
+      connection-timeout: 60000      
+      maximum-pool-size: 10
+      minimum-idle: 2      
+      max-lifetime: 30000    
+  devtools:
+    livereload:
+      enabled: true
+
+server:
+  port: ${PORT:8080}
+  compression:
+    enabled: true
+    min-response-size: 2048
+  tomcat:
+    uri-encoding: UTF-8
+  error:
+    whitelabel:
+      enabled: false
+mybatis:
+  mapper-locations: classpath:/mybatis/mapper/**.xml
+  config-location: classpath:/mybatis/mybatis-config.xml
+
+logging:
+  level:
+    kr.co.softnet: debug
+    org.mybatis: debug
+    org.apache: info
+    org.springframework: info
+    org.springframework.web: info
+    org.springframework.jdbc: debug
+    com.zaxxer.hikari: info
+    root: debug
+  path: logs
+  pattern:
+    console: '%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr(${LOG_LEVEL_PATTERN:-%5p}) %clr(${PID:- }){magenta} %clr(---){faint} %clr([%15.15t]){faint} %clr(%-40.40logger{39}){cyan} %clr(:){faint} %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}'
+    file: '%d{yyyy-MM-dd HH:mm:ss.SSS} ${LOG_LEVEL_PATTERN:-%5p} ${PID:- } --- [%t] %-40.40logger{39} : %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}'
