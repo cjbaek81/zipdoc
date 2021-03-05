@@ -35,14 +35,14 @@ public class PasteController {
      * @throws Exception
      */
     @PostMapping("/register")
-    public ResponseEntity<ResponseVo<String>> registerPaste(@RequestBody RequestVo requestVo) throws Exception {
+    public ResponseEntity<ResponseVo<String>> registerPaste(@RequestBody RequestVo<PasteVo> requestVo) throws Exception {
         ResponseVo<String> resp = new ResponseVo<String>();
 
-        String strUrl = pasteService.insertPaste(requestVo);
-        if (strUrl == null) {
+        String pasteUrl = pasteService.insertPaste(requestVo);
+        if (pasteUrl == null) {
             return ResponseEntity.ok(new ResponseVo<String>(RspCode.INTERNAL_SERVER));
         }
-        resp.setData(strUrl);
+        resp.setData(pasteUrl);
 
         return ResponseEntity.ok(resp);
     }

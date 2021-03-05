@@ -15,7 +15,36 @@
 			#{data.pasteVo.pasteUrl},
 			#{data.pasteVo.pasteText},
 			#{data.pasteVo.pasteExpiration},
-			#{data.pasteVo.expireDt},
+			<if test="data.pasteVo.pasteExpiration eq 'N'.toString()">
+				date_add(now(),INTERVAL 9999 MONTH),
+			</if>
+			<if test="data.pasteVo.pasteExpiration eq '10M'.toString()">
+				date_add(now(),INTERVAL 10 MINUTE),
+			</if>
+			<if test="data.pasteVo.pasteExpiration eq '1H'.toString()">
+				date_add(now(),INTERVAL 1 HOUR),
+			</if>
+			<if test="data.pasteVo.pasteExpiration eq '1D'.toString()">
+				date_add(now(),INTERVAL 1 DAY),
+			</if>
+			<if test="data.pasteVo.pasteExpiration eq '1W'.toString()">
+				date_add(now(),INTERVAL 1 WEEK),
+			</if>
+			<if test="data.pasteVo.pasteExpiration eq '2W'.toString()">
+				date_add(now(),INTERVAL 2 WEEK),
+			</if>
+			<if test="data.pasteVo.pasteExpiration eq '1M'.toString()">
+				date_add(now(),INTERVAL 1 MONTH),
+			</if>
+			<if test="data.pasteVo.pasteExpiration eq '2M'.toString()">
+				date_add(now(),INTERVAL 2 MONTH),
+			</if>
+			<if test="data.pasteVo.pasteExpiration eq '6M'.toString()">
+				date_add(now(),INTERVAL 6 MONTH),
+			</if>
+			<if test="data.pasteVo.pasteExpiration eq '1Y'.toString()">
+				date_add(now(),INTERVAL 1 YEAR),
+			</if>
 			#{data.pasteVo.pasteNameTitle}
 		)
 	</insert>
