@@ -72,7 +72,7 @@ public class PasteController {
     }
 
     /**
-     * paste 조회
+     * paste 삭제
      *
      * @param pasteSeqNo
      * @return
