@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.zipdoc.dev.mapper.PasteStatsMapper">
+
+	<!-- 일별 paste stats 등록 -->
+	<insert id="insertPasteStats">
+		INSERT INTO tb_paste_stats (
+			paste_seq_no,
+			view_dt,
+			view_dt_cnt
+		)
+		SELECT paste_seq_no,
+		       DATE_FORMAT(visit_time,'%Y-%m-%d') AS view_dt,
+		       COUNT(paste_seq_no) AS view_dt_cnt
+		 FROM tb_paste_log
+		WHERE DATE_FORMAT(visit_time,'%Y-%m-%d') = DATE_FORMAT(date_add(now(), interval -1 day),'%Y-%m-%d')
+	 GROUP BY paste_seq_no, DATE_FORMAT(visit_time,'%Y-%m-%d')
+	</insert>
+
+
+	<!-- paste별 월간 통계 -->
+	<select id="selectMonthPasteStatsList" resultType="PasteStatsVo">
+		SELECT paste_seq_no, MONTH(view_dt) AS monthVl, SUM(view_dt_cnt) AS view_dt_cnt
+		 FROM tb_paste_stats
+		GROUP BY monthVl, paste_seq_no
+	</select>
+
+</mapper>

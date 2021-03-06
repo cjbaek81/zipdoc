@@ -28,6 +28,8 @@
             if(res.code == 200){
                 $("textarea#postform-text").val(JSON.stringify(res.data));
                 getViwCount(res.data);
+            }else{
+                $("textarea#postform-text").val(res.message);
             }
         });
     });
