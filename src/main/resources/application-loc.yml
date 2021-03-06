@@ -14,9 +14,12 @@ spring:
   devtools:
     livereload:
       enabled: true
+  cache:
+   jcache:
+    config: classpath:ehcache.xml
 
 server:
-  port: ${PORT:8080}
+  port: ${PORT:8090}
   compression:
     enabled: true
     min-response-size: 2048
@@ -39,7 +42,8 @@ logging:
     org.springframework.jdbc: debug
     com.zaxxer.hikari: info
     root: debug
-  path: logs
   pattern:
     console: '%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr(${LOG_LEVEL_PATTERN:-%5p}) %clr(${PID:- }){magenta} %clr(---){faint} %clr([%15.15t]){faint} %clr(%-40.40logger{39}){cyan} %clr(:){faint} %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}'
     file: '%d{yyyy-MM-dd HH:mm:ss.SSS} ${LOG_LEVEL_PATTERN:-%5p} ${PID:- } --- [%t] %-40.40logger{39} : %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}'
+  file:
+    path: logs

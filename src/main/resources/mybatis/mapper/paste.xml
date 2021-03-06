@@ -4,7 +4,7 @@
 <mapper namespace="com.zipdoc.dev.mapper.PasteMapper">
 
 	<!-- paste 등록 -->
-	<insert id="insertPaste" parameterType="RequestVo">
+	<insert id="insertPaste" parameterType="PasteVo">
 		INSERT INTO tb_paste (
 			paste_url,
 			paste_text,
@@ -12,40 +12,40 @@
 			expire_dt,
 			paste_name_title
 		)VALUES(
-			#{data.pasteVo.pasteUrl},
-			#{data.pasteVo.pasteText},
-			#{data.pasteVo.pasteExpiration},
-			<if test="data.pasteVo.pasteExpiration eq 'N'.toString()">
+			#{pasteUrl},
+			#{pasteText},
+			#{pasteExpiration},
+			<if test="pasteExpiration eq 'N'.toString()">
 				date_add(now(),INTERVAL 9999 MONTH),
 			</if>
-			<if test="data.pasteVo.pasteExpiration eq '10M'.toString()">
+			<if test="pasteExpiration eq '10M'.toString()">
 				date_add(now(),INTERVAL 10 MINUTE),
 			</if>
-			<if test="data.pasteVo.pasteExpiration eq '1H'.toString()">
+			<if test="pasteExpiration eq '1H'.toString()">
 				date_add(now(),INTERVAL 1 HOUR),
 			</if>
-			<if test="data.pasteVo.pasteExpiration eq '1D'.toString()">
+			<if test="pasteExpiration eq '1D'.toString()">
 				date_add(now(),INTERVAL 1 DAY),
 			</if>
-			<if test="data.pasteVo.pasteExpiration eq '1W'.toString()">
+			<if test="pasteExpiration eq '1W'.toString()">
 				date_add(now(),INTERVAL 1 WEEK),
 			</if>
-			<if test="data.pasteVo.pasteExpiration eq '2W'.toString()">
+			<if test="pasteExpiration eq '2W'.toString()">
 				date_add(now(),INTERVAL 2 WEEK),
 			</if>
-			<if test="data.pasteVo.pasteExpiration eq '1M'.toString()">
+			<if test="pasteExpiration eq '1M'.toString()">
 				date_add(now(),INTERVAL 1 MONTH),
 			</if>
-			<if test="data.pasteVo.pasteExpiration eq '2M'.toString()">
+			<if test="pasteExpiration eq '2M'.toString()">
 				date_add(now(),INTERVAL 2 MONTH),
 			</if>
-			<if test="data.pasteVo.pasteExpiration eq '6M'.toString()">
+			<if test="pasteExpiration eq '6M'.toString()">
 				date_add(now(),INTERVAL 6 MONTH),
 			</if>
-			<if test="data.pasteVo.pasteExpiration eq '1Y'.toString()">
+			<if test="pasteExpiration eq '1Y'.toString()">
 				date_add(now(),INTERVAL 1 YEAR),
 			</if>
-			#{data.pasteVo.pasteNameTitle}
+			#{pasteNameTitle}
 		)
 	</insert>
 
@@ -93,5 +93,12 @@
 			NOW()
 		)
 	</insert>
+
+	<!-- 등록된 paste 조회수 조회 -->
+	<select id="selectPasteCount" parameterType="Integer" resultType="Integer">
+		SELECT view_cnt
+		 FROM tb_paste
+		WHERE paste_seq_no = #{pasteSeqNo}
+	</select>
 
 </mapper>

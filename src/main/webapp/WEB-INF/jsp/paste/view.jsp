@@ -11,4 +11,31 @@
 <body>
 paste view!!
 </body>
+<script>
+
+    $( document ).ready(function() {
+        var url = "/api/paste/"+"${pageUrl}";
+        $.get(url, function(res, status){
+            console.log(res);
+        });
+    });
+
+    /*$.ajax({
+        url : "/api/paste/"+"${pageUrl}",
+        method : "get",
+        dataType : 'json',
+        async : false,
+        success : function(res) {
+            console.log(res);
+
+        },
+        complete : function(data) {
+        },
+        error : function(XMLHttpRequest, textStatus, errorThrown) {
+            alert("Status: " + textStatus);
+        }
+    });*/
+
+
+</script>
 </html>

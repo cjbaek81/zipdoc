@@ -9,5 +9,6 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <html lang="ko">
     <!--<![endif]-->
+<script src="https://code.jquery.com/jquery-latest.min.js"></script>
 <tiles:insertAttribute name="body" />
 </html>

@@ -35,12 +35,12 @@ public class PasteController {
      * @throws Exception
      */
     @PostMapping("/register")
-    public ResponseEntity<ResponseVo<String>> registerPaste(@RequestBody RequestVo<PasteVo> requestVo) throws Exception {
+    public ResponseEntity<ResponseVo<String>> registerPaste(@RequestBody PasteVo requestVo) throws Exception {
         ResponseVo<String> resp = new ResponseVo<String>();
 
         String pasteUrl = pasteService.insertPaste(requestVo);
         if (pasteUrl == null) {
-            return ResponseEntity.ok(new ResponseVo<String>(RspCode.INTERNAL_SERVER));
+            return ResponseEntity.ok(new ResponseVo(RspCode.INTERNAL_SERVER));
         }
         resp.setData(pasteUrl);
 
@@ -61,10 +61,33 @@ public class PasteController {
 
         ResponseVo<PasteVo> resp = new ResponseVo<PasteVo>();
 
-        PasteVo result = pasteService.selectPaste(pasteUrl, request);
+        PasteVo result = pasteService.selectPaste(pasteUrl);
 
         if (result == null) {
-            return ResponseEntity.ok(new ResponseVo<PasteVo>(RspCode.NOT_FOUND_INFO));
+            return ResponseEntity.ok(new ResponseVo(RspCode.NOT_FOUND_INFO));
+        }
+        resp.setData(result);
+
+        return ResponseEntity.ok(resp);
+    }
+
+    /**
+     * paste 뷰카운트 업데이트 및 뷰카운트 조회
+     *
+     * @param pasteSeqNo
+     * @return
+     * @throws Exception
+     */
+    @GetMapping("update/{pasteSeqNo}")
+    public ResponseEntity<ResponseVo<Integer>> modifyPasteCount(HttpServletRequest request, @PathVariable("pasteSeqNo") Long pasteSeqNo)
+            throws Exception {
+
+        ResponseVo<Integer> resp = new ResponseVo<Integer>();
+
+        Integer result = pasteService.updatePasteCount(pasteSeqNo, request);
+
+        if (result == null) {
+            return ResponseEntity.ok(new ResponseVo(RspCode.INTERNAL_SERVER));
         }
         resp.setData(result);
 
@@ -88,7 +111,7 @@ public class PasteController {
         int result = pasteService.deletePaste(pasteSeqNo);
 
         if (result != 1) {
-            return ResponseEntity.ok(new ResponseVo<Void>(RspCode.NOT_FOUND));
+            return ResponseEntity.ok(new ResponseVo(RspCode.NOT_FOUND));
         }
         return new ResponseEntity<ResponseVo<Void>>(resp, HttpStatus.OK);
     }

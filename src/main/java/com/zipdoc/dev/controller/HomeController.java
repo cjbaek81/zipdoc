@@ -46,7 +46,7 @@ public class HomeController {
 	//글 등록 후 페이지 이동
 	@RequestMapping("/{url}")
 	public String oneUrl(ModelMap model, @PathVariable String url) throws Exception {
-		LOGGER.info("oneUrl");
+		LOGGER.info(url);
 		String strUrl = "view";
 		model.addAttribute("pageUrl", url);
 		return "paste/" + strUrl;
