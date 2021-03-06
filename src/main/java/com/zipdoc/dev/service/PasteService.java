@@ -53,7 +53,7 @@ public class PasteService {
 		}
 	}
 	@Transactional
-	public Integer updatePasteCount(Long pasteSeqNo, HttpServletRequest request) throws Exception {
+	public Long updatePasteCount(Long pasteSeqNo, HttpServletRequest request) throws Exception {
 
 		//조회수 업데이트
 		pasteMapper.updatePasteViewCnt(pasteSeqNo);
@@ -64,7 +64,7 @@ public class PasteService {
 		param.setVisitIp(IpUtil.getClientIP(request));
 		pasteMapper.insertPasteLog(param);
 		//조회수 가져오기
-		Integer result = pasteMapper.selectPasteCount(pasteSeqNo);
+		Long result = pasteMapper.selectPasteCount(pasteSeqNo);
 
 		return result;
 	}

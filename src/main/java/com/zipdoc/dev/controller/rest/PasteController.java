@@ -79,12 +79,12 @@ public class PasteController {
      * @throws Exception
      */
     @GetMapping("update/{pasteSeqNo}")
-    public ResponseEntity<ResponseVo<Integer>> modifyPasteCount(HttpServletRequest request, @PathVariable("pasteSeqNo") Long pasteSeqNo)
+    public ResponseEntity<ResponseVo<Long>> modifyPasteCount(HttpServletRequest request, @PathVariable("pasteSeqNo") Long pasteSeqNo)
             throws Exception {
 
-        ResponseVo<Integer> resp = new ResponseVo<Integer>();
+        ResponseVo<Long> resp = new ResponseVo<Long>();
 
-        Integer result = pasteService.updatePasteCount(pasteSeqNo, request);
+        Long result = pasteService.updatePasteCount(pasteSeqNo, request);
 
         if (result == null) {
             return ResponseEntity.ok(new ResponseVo(RspCode.INTERNAL_SERVER));

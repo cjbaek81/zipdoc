@@ -18,6 +18,6 @@ public interface PasteMapper {
 
 	int insertPasteLog(PasteLogVo pasteLogVo) throws Exception;
 
-	Integer selectPasteCount(Long pasteSeqNo) throws Exception;
+	Long selectPasteCount(Long pasteSeqNo) throws Exception;
 
 }

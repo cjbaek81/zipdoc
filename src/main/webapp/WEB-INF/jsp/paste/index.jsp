@@ -46,10 +46,6 @@
             pasteNameTitle : $("#postform-name").val()
         }
 
-
-        console.log(pasteVo);
-        console.log(JSON.stringify(pasteVo));
-
         $.ajax({
             url : "/api/paste/register",
             method : "post",

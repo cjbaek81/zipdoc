@@ -63,7 +63,7 @@
 		  FROM tb_paste
 		 WHERE paste_url = #{pasteUrl}
 		   AND del_yn = 0
-		   AND DATE(expire_dt) >= now()
+		   AND expire_dt >= now()
 	</select>
 
 	<!-- paste 삭제 처리 -->
@@ -95,7 +95,7 @@
 	</insert>
 
 	<!-- 등록된 paste 조회수 조회 -->
-	<select id="selectPasteCount" parameterType="Integer" resultType="Integer">
+	<select id="selectPasteCount" parameterType="Long" resultType="Long">
 		SELECT view_cnt
 		 FROM tb_paste
 		WHERE paste_seq_no = #{pasteSeqNo}

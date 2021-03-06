@@ -9,33 +9,38 @@
 <title>dev</title>
 </head>
 <body>
-paste view!!
+<div class="form-group field-postform-text required">
+    <textarea id="postform-text" class="textarea -form js-paste-code" name="PostForm[text]" autofocus="" aria-required="true" style="overflow: hidden; overflow-wrap: break-word; height: 300px; width: 100%"></textarea>
+</div>
+<div class="form-group field-postform-name">
+    <label class="control-label col-sm-3" for="postform-viewCnt">조회수 : </label>
+    <div class="col-sm-9 field-wrapper">
+        <input type="text" id="postform-viewCnt" class="form-control" name="PostForm[viewCnt]">
+    </div>
+</div>
 </body>
 <script>
 
     $( document ).ready(function() {
-        var url = "/api/paste/"+"${pageUrl}";
+        var url = "/api/paste/"+"<c:out value='${pageUrl}'/>";
         $.get(url, function(res, status){
-            console.log(res);
+            console.log(res)
+            if(res.code == 200){
+                $("textarea#postform-text").val(JSON.stringify(res.data));
+                getViwCount(res.data);
+            }
         });
     });
 
-    /*$.ajax({
-        url : "/api/paste/"+"${pageUrl}",
-        method : "get",
-        dataType : 'json',
-        async : false,
-        success : function(res) {
-            console.log(res);
-
-        },
-        complete : function(data) {
-        },
-        error : function(XMLHttpRequest, textStatus, errorThrown) {
-            alert("Status: " + textStatus);
-        }
-    });*/
-
-
+    //조회수
+    function getViwCount(data){
+        var url = "/api/paste/update/"+data.pasteSeqNo;
+        $.get(url, function(res, status){
+            console.log(res)
+            if(res.code == 200){
+                $("#postform-viewCnt").val(res.data);
+            }
+        });
+    }
 </script>
 </html>
