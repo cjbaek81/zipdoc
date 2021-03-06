@@ -6,11 +6,11 @@
 	<!-- paste 등록 -->
 	<insert id="insertPaste" parameterType="RequestVo">
 		INSERT INTO tb_paste (
-			pasteUrl,
-			pasteText,
-			pasteExpiration,
-			expireDt,
-			pasteNameTitle
+			paste_url,
+			paste_text,
+			paste_expiration,
+			expire_dt,
+			paste_name_title
 		)VALUES(
 			#{data.pasteVo.pasteUrl},
 			#{data.pasteVo.pasteText},
@@ -51,26 +51,47 @@
 
 	<!-- 등록된 paste 조회 -->
 	<select id="selectPaste" parameterType="String" resultType="PasteVo">
-		SELECT pasteSeqNo,
-			   pasteText,
-			   pasteExpiration,
-			   expireDt,
-			   pasteNameTitle,
-			   pasteUrl,
-			   delYn,
-			   regDt,
-			   edtDt
+		SELECT paste_seq_no,
+			   paste_text,
+			   paste_expiration,
+			   expire_dt,
+			   paste_name_title,
+			   paste_url,
+		       view_cnt,
+			   reg_dt,
+			   edt_dt
 		  FROM tb_paste
-		 WHERE pasteUrl = #{pasteUrl}
-		   AND delYn = 0
-		   AND DATE(expireDt) >= now()
+		 WHERE paste_url = #{pasteUrl}
+		   AND del_yn = 0
+		   AND DATE(expire_dt) >= now()
 	</select>
 
 	<!-- paste 삭제 처리 -->
 	<update id="deletePaste" parameterType="Long">
 		UPDATE tb_paste
-		  SET delYn = 1,
-		      edtDt = NOW()
-		WHERE pasteSeqNo = #{pasteSeqNo}
+		   SET del_yn = 1,
+		       edt_dt = NOW()
+		 WHERE paste_seq_no = #{pasteSeqNo}
 	</update>
+
+	<!-- paste 조회수 업데이트 -->
+	<update id="updatePasteViewCnt" parameterType="Long">
+		UPDATE tb_paste
+		   SET view_cnt = view_cnt+1
+		 WHERE paste_seq_no = #{pasteSeqNo}
+	</update>
+
+	<!-- paste log 등록 -->
+	<insert id="insertPasteLog" parameterType="PasteLogVo">
+		INSERT INTO tb_paste_log (
+			paste_seq_no,
+			visit_ip,
+			visit_time
+		)VALUES(
+			#{pasteSeqNo},
+			#{visitIp},
+			NOW()
+		)
+	</insert>
+
 </mapper>

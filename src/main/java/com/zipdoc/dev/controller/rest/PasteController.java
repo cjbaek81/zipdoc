@@ -61,10 +61,10 @@ public class PasteController {
 
         ResponseVo<PasteVo> resp = new ResponseVo<PasteVo>();
 
-        PasteVo result = pasteService.selectPaste(pasteUrl);
+        PasteVo result = pasteService.selectPaste(pasteUrl, request);
 
         if (result == null) {
-            return ResponseEntity.ok(new ResponseVo<PasteVo>(RspCode.NOT_FOUND));
+            return ResponseEntity.ok(new ResponseVo<PasteVo>(RspCode.NOT_FOUND_INFO));
         }
         resp.setData(result);
 

@@ -14,7 +14,7 @@ public class PasteVo {
 	private String pasteNameTitle;		//이름 및 제목
 	private String pasteUrl;			//url
 	private String delYn;				//삭제 여부
+	private String viewCnt;				//조회수
 	private Date regDt; 				// 등록일시
 	private Date edtDt; 				// 수정일시
-
 }
